@@ -1,0 +1,34 @@
+{
+  "name": "bitms/consul",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": ["bitms","consul"],
+  "type": "sdk",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Viktor Nazarov",
+      "email": "v.nazarov@bitms.ru"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^7.2",
+    "psr/log": "^1.1",
+    "php": "^7.4",
+    "ext-json": "^7.4",
+    "ext-curl": "^7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "@stable"
+  },
+  "autoload": {
+    "psr-4": {
+      "bitms\\Consul\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "bitms\\Test\\": "tests/"
+    }
+  }
+}
