@@ -53,7 +53,7 @@ class BuildService
 
     public function getAddress():string
     {
-        return sprintf('%s://%s:%s/', $this->protocol, $this->address, $this->port);
+        return sprintf('%s://%s:%s', $this->protocol, $this->address, $this->port);
     }
 
     public function setHeader(string $name, string $value):void
@@ -68,17 +68,17 @@ class BuildService
 
     protected function get(string $path, array $param = [])
     {
-        return $this->request('get', $path, $param);
+        return $this->request('GET', $path, $param);
     }
 
     protected function put(string $path, array $param = [])
     {
-        return $this->request('put', $path, $param);
+        return $this->request('PUT', $path, $param);
     }
 
     protected function delete(string $path, array $param = [])
     {
-        return $this->request('delete', $path, $param);
+        return $this->request('DELETE', $path, $param);
     }
 
     /**
@@ -96,7 +96,7 @@ class BuildService
         $result = [];
 
         try {
-            $request = $this->client->request($method, $uri,$params);
+            $request = $this->client->request($method, $uri, $params);
             $body = $request->getBody();
 
             $this->logger->debug(sprintf("Response:\n%s", $body));
