@@ -5,6 +5,7 @@
   "keywords": ["bitms","consul"],
   "type": "sdk",
   "license": "MIT",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Viktor Nazarov",
