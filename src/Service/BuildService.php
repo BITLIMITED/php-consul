@@ -91,7 +91,7 @@ class BuildService
     protected function request(string $method, string $path, array $params = [], bool $decode = true):?array
     {
         $uri = $this->getAddress() . $path;
-        $params['headers'] = $this->headers;
+//        $params['headers'] = $this->headers;
 
         $result = [];
 
