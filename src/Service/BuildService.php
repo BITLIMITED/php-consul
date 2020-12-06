@@ -78,7 +78,7 @@ class BuildService
 
     protected function delete(string $path, array $param = [])
     {
-        return $this->request('DELETE', $path, $param);
+        return $this->request('PUT', $path, $param);
     }
 
     /**

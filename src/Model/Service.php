@@ -4,32 +4,78 @@
 namespace bitms\Consul\Model;
 
 
+use bitms\Consul\Model\Service\AgentCheck;
+
 class Service
 {
     /**
      * @var string
      */
-    protected string $name;
+    private string $id;
 
     /**
      * @var string
      */
-    protected string $id;
+    private string $name;
 
     /**
      * @var string
      */
-    protected string $address;
+    private string $address = '127.0.0.1';
 
     /**
      * @var int
      */
-    protected int $port;
+    private int $port;
 
     /**
      * @var array
      */
-    protected array $tag;
+    private array $tag;
+
+    /**
+     * @var array
+     */
+    private array $checks;
+
+    /**
+     * @var AgentCheck
+     */
+    public AgentCheck $check;
+
+    /**
+     * Service constructor.
+     */
+    public function __construct()
+    {
+        $this->check = new AgentCheck;
+    }
+
+    /**
+     * @param AgentCheck $check
+     */
+    public function setChecks(AgentCheck $check):void
+    {
+        $this->checks[] = [
+            'Name' => $check->getName(),
+            'Http' => $check->getHttp(),
+            'Method' => $check->getMethod(),
+            'TlsSkipVerify' => $check->isTls(),
+            'Header' => $check->getHeader(),
+            'Body' => $check->getBody(),
+            'DeregisterCriticalServiceAfter' => $check->getDeregister(),
+            'Interval' => $check->getInterval(),
+            'Timeout' => $check->getTimeout()
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getChecks():array
+    {
+        return $this->checks;
+    }
 
     /**
      * @return string

@@ -17,25 +17,18 @@ class Registry extends BuildService
         $params['body'] = [
             'Id' => $service->getId(),
             'Name' => $service->getName(),
-            'Tag' => $service->getTag(),
+            'Tags' => $service->getTag(),
             'Address' => $service->getAddress(),
             'Port' => $service->getPort(),
-            'Check' => [
-                'Name' => 'ping check',
-                'DeregisterCriticalServiceAfter' => '10m',
-                'Args' => ['ping', '-c1', 'learn.hashicorp.com'],
-                'Interval' => '10s',
-                'Timeout' => '5s',
-                'Status' => 'passing'
-            ]
+            'Checks' => $service->getChecks()
         ];
 
         return $this->put($this->registerUri, $params);
     }
 
-    public function uninstall(Service $service)
+    public function uninstall(string $serviceId)
     {
-        $uri = sprintf($this->unregisterUri, $service->getId());
+        $uri = sprintf($this->unregisterUri, $serviceId);
 
         return $this->delete($uri);
     }
