@@ -1,6 +1,6 @@
 {
   "name": "bitms/consul",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "description": "Create default file",
   "keywords": ["bitms","consul","injector", "config"],
   "type": "composer-plugin",
@@ -23,7 +23,8 @@
     "composer-plugin-api": "^1.1",
     "symfony/yaml": "^5.1",
     "symfony/config": "^5.1",
-    "symfony/dependency-injection": "^5.1"
+    "symfony/dependency-injection": "^5.1",
+    "symfony/http-kernel": "^5.1"
   },
   "require-dev": {
     "phpunit/phpunit": "@stable",

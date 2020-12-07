@@ -31,7 +31,7 @@ class InstallerPlugin implements PluginInterface
         /**
          * Create config file for ACPU
          */
-        $this::createConfig();
+//        $this::createConfig();
 
         /**
          * Create index
