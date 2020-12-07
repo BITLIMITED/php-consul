@@ -1,6 +1,6 @@
 {
   "name": "bitms/consul",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "",
   "keywords": ["bitms","consul"],
   "type": "composer-plugin",

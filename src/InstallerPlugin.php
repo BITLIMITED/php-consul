@@ -15,7 +15,7 @@ class InstallerPlugin implements PluginInterface
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        $dir = dirname(__FILE__);
+        $dir = dirname(__FILE__,4);
         $file = $dir . '/src/Controller/IndexMyController.php';
         file_put_contents($file, json_encode([]));
     }
