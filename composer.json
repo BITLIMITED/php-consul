@@ -1,6 +1,6 @@
 {
   "name": "bitms/consul",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "",
   "keywords": ["bitms","consul"],
   "type": "composer-plugin",
@@ -20,7 +20,8 @@
     "ext-curl": "^7.4",
     "ext-apcu": "^5.1",
     "symfony/http-foundation": "^5.1",
-    "composer-plugin-api": "^1.1"
+    "composer-plugin-api": "^1.1",
+    "symfony/yaml": "^5.2"
   },
   "require-dev": {
     "phpunit/phpunit": "@stable",

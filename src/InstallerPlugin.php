@@ -5,6 +5,7 @@ namespace bitms\Consul;
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class InstallerPlugin implements PluginInterface
 {
@@ -27,15 +28,20 @@ class InstallerPlugin implements PluginInterface
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        $controller = dirname(__FILE__) . '/Controller/ConsulController.txt';
+        /**
+         * Create config file for ACPU
+         */
+        $this::createConfig();
 
-        $content = "<?php
-        namespace App\Controller;
-        
-        ";
-        $content .= file_get_contents($controller);
+        /**
+         * Create index
+         */
+        $this::createIndex();
 
-        file_put_contents($this->controller, $content);
+        /**
+         * Create Consul Controller
+         */
+        $this::createController();
     }
 
     /**
@@ -55,4 +61,65 @@ class InstallerPlugin implements PluginInterface
     {
         @unlink($this->controller);
     }
+
+    private function createController()
+    {
+        $controller = dirname(__FILE__) . '/Controller/ConsulController.txt';
+
+        $content = "<?php
+        namespace App\Controller;
+        
+        ";
+        $content .= file_get_contents($controller);
+
+        file_put_contents($this->controller, $content);
+    }
+
+    private function createConfig()
+    {
+        $config = dirname(__FILE__,5) . '/config/packages/consul.yaml';
+
+        $data = [
+            'serviceName' => '%serviceName%',
+            'hostName'    => '%hostName%',
+            'port'        => '%portNumber%',
+            'ttl'         => '%ttl%'
+        ];
+
+        $yaml = Yaml::dump($data);
+
+        file_put_contents($config, $yaml);
+    }
+
+    private function createIndex()
+    {
+        $content = "<?php";
+        $content.= "use App\Kernel;";
+        $content.= "use Symfony\Component\ErrorHandler\Debug;";
+        $content.= "use Symfony\Component\HttpFoundation\Request;";
+        $content.= "use Symfony\Component\Yaml\Yaml;";
+        $content.= "";
+        $content.= 'require dirname(__DIR__)."/vendor/autoload.php";';
+        $content.= "";
+        $content.= '$yaml = Yaml::parseFile("../config/packages/consul.yaml")';
+        $content.= '$storageKey = gethostname() ."/". $yaml["serviceName"] . "/" .$yaml["hostName"] ."_". $yaml["port"] . ".json"';
+        $content.= 'if (apcu_exists($storageKey)) {';
+        $content.= '} else {';
+        $content.= '    $storageValue = json_decode($storage->getKeyValue($storageKey)->getValue());';
+        $content.= '    apcu_add($storageKey, $storageValue, $yaml["ttl"]);';
+        $content.= '}';
+        $content.= 'if ($storageValue->env->APP_DEBUG) {';
+        $content.= '    umask(0000);';
+        $content.= '    Debug::enable();';
+        $content.= '}';
+        $content.= '$kernel = new Kernel($storageValue->env->APP_ENV, (bool) $storageValue->env->APP_DEBUG);';
+        $content.= '$request = Request::createFromGlobals();';
+        $content.= '$response = $kernel->handle($request);';
+        $content.= '$response->send();';
+        $content.= '$kernel->terminate($request, $response);';
+
+        $index = dirname(__FILE__,5). '/public/index.php';
+        file_put_contents($index, $content,LOCK_EX);
+    }
+
 }
