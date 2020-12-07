@@ -1,8 +1,8 @@
 {
   "name": "bitms/consul",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "description": "Run start component",
-  "keywords": ["bitms","consul","injector", "symfony5.1"],
+  "keywords": ["bitms","consul","injector"],
   "type": "composer-plugin",
   "license": "MIT",
   "minimum-stability": "stable",
