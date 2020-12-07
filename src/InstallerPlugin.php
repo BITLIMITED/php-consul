@@ -9,17 +9,28 @@ use Composer\Plugin\PluginInterface;
 
 class InstallerPlugin implements PluginInterface
 {
+    private string $controller;
+
+    public function __construct()
+    {
+        $this->controller = dirname(__FILE__,5) . '/src/Controller/ConsulController.php';
+    }
+
     /**
      * @param Composer $composer
      * @param IOInterface $io
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        $dir = dirname(__FILE__,5);
+        $controller = dirname(__FILE__) . '/Controller/ConsulController.txt';
 
-        $file = $dir . '/src/Controller/IndexMyController.php';
+        $content = "<?php
+        namespace App\Controller;
+        
+        ";
+        $content .= file_get_contents($controller);
 
-        file_put_contents($file, json_encode([]));
+        file_put_contents($this->controller, $content);
     }
 
     /**
@@ -33,6 +44,6 @@ class InstallerPlugin implements PluginInterface
 
     public function uninstall(Composer $composer, IOInterface $io)
     {
-        // TODO: Implement uninstall() method.
+        @unlink($this->controller);
     }
 }

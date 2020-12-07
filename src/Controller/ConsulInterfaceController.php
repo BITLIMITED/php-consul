@@ -6,7 +6,7 @@ namespace bitms\Consul\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-interface UseController
+interface ConsulInterfaceController
 {
     /**
      * @param Request $request

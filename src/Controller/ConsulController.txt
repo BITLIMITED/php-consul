@@ -1,0 +1,48 @@
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use bitms\Consul\Controller\ConsulInterfaceController;
+
+class ConsulController implements ConsulInterfaceController
+{
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Route(path="consule/register", methods={"POST"})
+     */
+    public function addRegistration(Request $request): JsonResponse
+    {
+        return $this->response(json_decode($request->getContent(),true), 200);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Route(path="consule/deregister", methods={"POST"})
+     */
+    public function dropRegistration(Request $request): JsonResponse
+    {
+        return $this->response(json_decode($request->getContent(),true), 200);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Route(path="consule/checkin", methods={"POST"})
+     */
+    public function checkIn(Request $request): JsonResponse
+    {
+        return $this->response(json_decode($request->getContent(),true), 200);
+    }
+
+    /**
+     * @param array $data
+     * @param int $code
+     * @return JsonResponse
+     */
+    private function response(array $data, int $code = 200):JsonResponse
+    {
+        return new JsonResponse($data, $code);
+    }
+}
