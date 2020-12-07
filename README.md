@@ -80,7 +80,7 @@ $service->addTag('myCustomerTag');
 ## Registration of an agent in Consul
 > Use Service - Agent HTTP API
 
-- ###Register Service
+###Register Service
 ```php
 <?php
 
@@ -104,7 +104,7 @@ class Example
  
 ```
 
-- ###Deregister Service
+###Deregister Service
 ```php
 <?php
 
@@ -121,4 +121,4 @@ class Example
 }
 
 ```
-- ###Get Service Configuration
+###Get Service Configuration
