@@ -9,12 +9,20 @@ use Composer\Plugin\PluginInterface;
 
 class InstallerPlugin implements PluginInterface
 {
+    /**
+     * @param Composer $composer
+     * @param IOInterface $io
+     */
     public function activate(Composer $composer, IOInterface $io)
     {
         $file = gethostname() . '/src/Controller/IndexMyController.php';
         file_put_contents($file, json_encode([]));
     }
 
+    /**
+     * @param Composer $composer
+     * @param IOInterface $io
+     */
     public function deactivate(Composer $composer, IOInterface $io)
     {
         // TODO: Implement deactivate() method.
