@@ -86,10 +86,10 @@ class InstallerPlugin implements PluginInterface
         $config = dirname(__FILE__,5) . '/config/packages/consul.yaml';
 
         $data = [
-            'serviceName' => '%serviceName%',
-            'hostName'    => '%hostName%',
-            'port'        => '%portNumber%',
-            'ttl'         => '%ttl%'
+            'serviceName' => '#serviceName#',
+            'hostName'    => '#hostName#',
+            'port'        => '#portNumber#',
+            'ttl'         => '#ttl#'
         ];
 
         $yaml = Yaml::dump($data);

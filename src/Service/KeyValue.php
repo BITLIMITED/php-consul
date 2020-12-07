@@ -11,7 +11,7 @@ class KeyValue extends BuildService
      * @param string $storageKey
      * @return Model|null
      */
-    public function getKayValue(string $storageKey)
+    public function getKeyValue(string $storageKey)
     {
         $response = $this->request('GET', '/v1/kv/' . $storageKey,[],false);
 
