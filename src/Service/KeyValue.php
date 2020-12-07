@@ -3,12 +3,13 @@
 
 namespace bitms\Consul\Service;
 
+use bitms\Consul\Model\KeyValue as Model;
 
 class KeyValue extends BuildService
 {
     /**
      * @param string $storageKey
-     * @return array|null
+     * @return Model|null
      */
     public function getKayValue(string $storageKey)
     {
@@ -20,10 +21,10 @@ class KeyValue extends BuildService
             return null;
 
         $data = json_decode($body, true);
+        $keyValue = new Model();
+        $keyValue->setKey($data[0]['Key']);
+        $keyValue->setValue(base64_decode($data[0]['Value']));
 
-        return [
-            'key' => $data[0]['Key'],
-            'value' => base64_decode($data[0]['Value'])
-        ];
+        return $keyValue;
     }
 }
