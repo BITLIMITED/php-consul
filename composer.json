@@ -1,8 +1,8 @@
 {
   "name": "bitms/consul",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "",
-  "keywords": ["bitms","consul"],
+  "keywords": ["bitms","consul","injector"],
   "type": "composer-plugin",
   "license": "MIT",
   "minimum-stability": "stable",

@@ -62,6 +62,9 @@ class InstallerPlugin implements PluginInterface
         @unlink($this->controller);
     }
 
+    /**
+     *
+     */
     private function createController()
     {
         $controller = dirname(__FILE__) . '/Controller/ConsulController.txt';
@@ -75,6 +78,9 @@ class InstallerPlugin implements PluginInterface
         file_put_contents($this->controller, $content);
     }
 
+    /**
+     *
+     */
     private function createConfig()
     {
         $config = dirname(__FILE__,5) . '/config/packages/consul.yaml';
