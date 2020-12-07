@@ -1,8 +1,8 @@
 {
   "name": "bitms/consul",
-  "version": "3.0.7",
-  "description": "",
-  "keywords": ["bitms","consul","injector"],
+  "version": "3.0.8",
+  "description": "Run start component",
+  "keywords": ["bitms","consul","injector", "symfony5.1"],
   "type": "composer-plugin",
   "license": "MIT",
   "minimum-stability": "stable",
@@ -21,7 +21,7 @@
     "ext-apcu": "^5.1",
     "symfony/http-foundation": "^5.1",
     "composer-plugin-api": "^1.1",
-    "symfony/yaml": "^5.2"
+    "symfony/yaml": "^5.1"
   },
   "require-dev": {
     "phpunit/phpunit": "@stable",
