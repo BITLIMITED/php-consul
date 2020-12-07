@@ -1,7 +1,7 @@
 {
   "name": "bitms/consul",
-  "version": "3.0.9",
-  "description": "Run start component",
+  "version": "3.1.0",
+  "description": "Create default file",
   "keywords": ["bitms","consul","injector"],
   "type": "composer-plugin",
   "license": "MIT",

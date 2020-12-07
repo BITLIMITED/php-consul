@@ -99,30 +99,31 @@ class InstallerPlugin implements PluginInterface
 
     private function createIndex()
     {
-        $content = "<?php";
-        $content.= "use App\Kernel;";
-        $content.= "use Symfony\Component\ErrorHandler\Debug;";
-        $content.= "use Symfony\Component\HttpFoundation\Request;";
-        $content.= "use Symfony\Component\Yaml\Yaml;";
-        $content.= "";
-        $content.= 'require dirname(__DIR__)."/vendor/autoload.php";';
-        $content.= "";
-        $content.= '$yaml = Yaml::parseFile("../config/packages/consul.yaml")';
-        $content.= '$storageKey = gethostname() ."/". $yaml["serviceName"] . "/" .$yaml["hostName"] ."_". $yaml["port"] . ".json"';
-        $content.= 'if (apcu_exists($storageKey)) {';
-        $content.= '} else {';
-        $content.= '    $storageValue = json_decode($storage->getKeyValue($storageKey)->getValue());';
-        $content.= '    apcu_add($storageKey, $storageValue, $yaml["ttl"]);';
-        $content.= '}';
-        $content.= 'if ($storageValue->env->APP_DEBUG) {';
-        $content.= '    umask(0000);';
-        $content.= '    Debug::enable();';
-        $content.= '}';
-        $content.= '$kernel = new Kernel($storageValue->env->APP_ENV, (bool) $storageValue->env->APP_DEBUG);';
-        $content.= '$request = Request::createFromGlobals();';
-        $content.= '$response = $kernel->handle($request);';
-        $content.= '$response->send();';
-        $content.= '$kernel->terminate($request, $response);';
+        $content = '<?php
+        use App\Kernel;
+        use Symfony\Component\ErrorHandler\Debug;
+        use Symfony\Component\HttpFoundation\Request;
+        use Symfony\Component\Yaml\Yaml;
+        
+        require dirname(__DIR__)."/vendor/autoload.php";
+               
+        $yaml = Yaml::parseFile("../config/packages/consul.yaml")
+        $storageKey = gethostname() ."/". $yaml["serviceName"] . "/" .$yaml["hostName"] ."_". $yaml["port"] . ".json"
+        if (apcu_exists($storageKey)) {
+        }else{
+            $storageValue = json_decode($storage->getKeyValue($storageKey)->getValue());
+            apcu_add($storageKey, $storageValue, $yaml["ttl"]);
+        }
+        if ($storageValue->env->APP_DEBUG) {
+            umask(0000);
+            Debug::enable();
+        }
+        $kernel = new Kernel($storageValue->env->APP_ENV, (bool) $storageValue->env->APP_DEBUG);
+        $request = Request::createFromGlobals();
+        $response = $kernel->handle($request);
+        $response->send();
+        $kernel->terminate($request, $response);
+        ';
 
         $index = dirname(__FILE__,5). '/public/index.php';
         file_put_contents($index, $content,LOCK_EX);
