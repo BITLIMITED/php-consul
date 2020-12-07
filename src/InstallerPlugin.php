@@ -86,10 +86,12 @@ class InstallerPlugin implements PluginInterface
         $config = dirname(__FILE__,5) . '/config/packages/consul.yaml';
 
         $data = [
-            'serviceName' => '#serviceName#',
-            'hostName'    => '#hostName#',
-            'port'        => '#portNumber#',
-            'ttl'         => '#ttl#'
+            'consul' => [
+                'serviceName' => '#serviceName#',
+                'hostName'    => '#hostName#',
+                'port'        => '#portNumber#',
+                'ttl'         => '#ttl#'
+            ]
         ];
 
         $yaml = Yaml::dump($data);
@@ -109,8 +111,10 @@ use bitms\Consul\Service\KeyValue;
 require dirname(__DIR__)."/vendor/autoload.php";
                
 $yaml = Yaml::parseFile("../config/packages/consul.yaml");
+$consulConfig = $yaml["consul"];
+
 $storage = new KeyValue;
-$storageKey = gethostname() ."/". $yaml["serviceName"] . "/" .$yaml["hostName"] ."_". $yaml["port"] . ".json";
+$storageKey = gethostname() ."/". $consulConfig["serviceName"] . "/" .$consulConfig["hostName"] ."_". $consulConfig["port"] . ".json";
 if (apcu_exists($storageKey)) {
     $storageValue = apcu_fetch($storageKey, $success);
     if (!$success)
